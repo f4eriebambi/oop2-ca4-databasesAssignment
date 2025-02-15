@@ -1,4 +1,4 @@
-package com.dkit.oop.oop2ca4databaseassignmentdao.DTOs;
+package com.oop2ca4databaseassignmentdao.DTOs;
 
 import java.util.Date;
 
@@ -66,12 +66,12 @@ public class Expense {
 
     @Override
     public String toString() {
-        return "Expense{" +
+        return "{ " +
                 "expenseID=" + expenseID +
                 ", title='" + title + '\'' +
                 ", category='" + category + '\'' +
                 ", amount=" + amount +
                 ", dateIncurred=" + dateIncurred +
-                '}';
+                " }";
     }
 }
