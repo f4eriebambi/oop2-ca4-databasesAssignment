@@ -16,7 +16,7 @@ public class MySqlExpenseDao extends MySqlDao implements ExpenseDaoInterface {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        List<Expense> expensesList = new ArrayList<>();
+        List<Expense> expenseList = new ArrayList<>();
         double totalExpense = 0;
 
         try {
@@ -33,7 +33,7 @@ public class MySqlExpenseDao extends MySqlDao implements ExpenseDaoInterface {
                 double amount = resultSet.getDouble("amount");
                 Date dateIncurred = resultSet.getDate("dateIncurred");
                 Expense expense = new Expense(expenseID, title, category, amount, dateIncurred);
-                expensesList.add(expense);
+                expenseList.add(expense);
 
                 totalExpense += amount;
             }
@@ -56,9 +56,9 @@ public class MySqlExpenseDao extends MySqlDao implements ExpenseDaoInterface {
                 throw new DaoException("allExpensesPlusTotal() " + e.getMessage());
             }
         }
-//        return expensesList;
+//        return expenseList;
         Map<String, Object> map = new HashMap<>();
-        map.put("expenses", expensesList);
+        map.put("expenses", expenseList);
         map.put("totalExpense", totalExpense);
 
         return map;

@@ -1,4 +1,4 @@
-package com.dkit.oop.oop2ca4databaseassignmentdao.DTOs;
+package com.oop2ca4databaseassignmentdao.DTOs;
 
 import java.util.Date;
 
