@@ -1,4 +1,4 @@
-package com.dkit.oop.sd2.DAOs;
+package com.dkit.oop.oop2ca4databaseassignmentdao.DAOs;
 
 /** OOP Feb 2022
  * UserDaoInterface
@@ -19,8 +19,8 @@ package com.dkit.oop.sd2.DAOs;
  * can be replaced by mock DAO objects.
  */
 
-import com.dkit.oop.sd2.DTOs.User;
-import com.dkit.oop.sd2.Exceptions.DaoException;
+import com.dkit.oop.oop2ca4databaseassignmentdao.DTOs.User;
+import com.dkit.oop.oop2ca4databaseassignmentdao.Exceptions.DaoException;
 import java.util.List;
 
 public interface UserDaoInterface

@@ -1,4 +1,4 @@
-package com.dkit.oop.sd2.Exceptions;
+package com.dkit.oop.oop2ca4databaseassignmentdao.Exceptions;
 
 /**     Feb 2022
  * A 'homemade' Exception to report exceptions

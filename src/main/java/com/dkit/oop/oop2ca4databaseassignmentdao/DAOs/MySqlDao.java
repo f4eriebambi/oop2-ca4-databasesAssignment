@@ -1,4 +1,4 @@
-package com.dkit.oop.sd2.DAOs;
+package com.dkit.oop.oop2ca4databaseassignmentdao.DAOs;
 /** MySqlDao -
  * - implements functionality that is common to all MySQL DAOs
  * - i.e. getConection() and freeConnection()
@@ -11,14 +11,14 @@ package com.dkit.oop.sd2.DAOs;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import com.dkit.oop.sd2.Exceptions.DaoException;
+import com.dkit.oop.oop2ca4databaseassignmentdao.Exceptions.DaoException;
 
 public class MySqlDao
 {
     public Connection getConnection() throws DaoException
     {
         String driver = "com.mysql.cj.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/user_database";
+        String url = "jdbc:mysql://localhost:3306/test";
         String username = "root";
         String password = "";
         Connection connection = null;
