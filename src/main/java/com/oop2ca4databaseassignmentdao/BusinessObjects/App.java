@@ -1,10 +1,5 @@
 package com.oop2ca4databaseassignmentdao.BusinessObjects;
 
-//import com.dkit.oop.sd2.DAOs.MySqlUserDao;
-//import com.dkit.oop.sd2.DAOs.UserDaoInterface;
-//import com.dkit.oop.sd2.DTOs.User;
-//import com.dkit.oop.sd2.Exceptions.DaoException;
-
 import com.oop2ca4databaseassignmentdao.DAOs.ExpenseDaoInterface;
 import com.oop2ca4databaseassignmentdao.DAOs.MySqlExpenseDao;
 import com.oop2ca4databaseassignmentdao.DTOs.Expense;
@@ -77,15 +72,17 @@ public class App {
                         System.out.println("- COMPLETED ADDING NEW EXPENSE TO DATABASE ! -");
                         break;
                     case 3:
-                        System.out.println( "- DELETE EXPENSE FROM DATABASE ! -" );
-                        Expense deletedExpense = IExpenseDao.deleteExpense(keyboard);
-                        if ( deletedExpense != null ) {
-                            System.out.println("Expense Deleted :: " + deletedExpense.toString());
+                        System.out.println("- DELETE EXPENSE FROM DATABASE ! -");
+                        try {
+                            Expense deletedExpense = IExpenseDao.deleteExpense(keyboard);
+                            if (deletedExpense != null) {
+                                System.out.println("Expense Deleted :: " + deletedExpense.toString());
+                                System.out.println("- COMPLETED DELETING EXPENSE FROM DATABASE ! -");
+                            }
+                        } catch (DaoException e) {
+                            System.out.println(e.getMessage());
+                            System.out.println("FAILED.");
                         }
-                        else {
-                            System.out.println( "FAILED." );
-                        }
-                            System.out.println("- COMPLETED DELETING EXPENSE FROM DATABASE ! -");
                         break;
                     case 4:
                         break;

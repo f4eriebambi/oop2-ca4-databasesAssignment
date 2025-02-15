@@ -131,10 +131,33 @@ public class MySqlExpenseDao extends MySqlDao implements ExpenseDaoInterface {
         try {
             connection = this.getConnection();
 
+            System.out.println( "Please enter the expense id you would like to delete :" );
+            int expenseID = keyboard.nextInt();
+            keyboard.nextLine();
 
+            String selectQuery = "SELECT * FROM expense WHERE expenseID = ?";
+            preparedStatement = connection.prepareStatement(selectQuery);
+            preparedStatement.setInt(1, expenseID);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String title = resultSet.getString("title");
+                String category = resultSet.getString("category");
+                double amount = resultSet.getDouble("amount");
+                Date dateIncurred = resultSet.getDate("dateIncurred");
+                deletedExpense = new Expense(expenseID, title, category, amount, dateIncurred);
+
+                String query = "DELETE FROM expense WHERE expenseID = ?";
+                preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, expenseID);
+                preparedStatement.executeUpdate();
+            }
+            else {
+                throw new DaoException("No expense found with that ID !");
+            }
         }
         catch (SQLException e) {
-            throw new DaoException("deleteExpense() " + e.getMessage());
+            throw new DaoException(e.getMessage());
         } finally {
             try {
                 if (resultSet != null) {
