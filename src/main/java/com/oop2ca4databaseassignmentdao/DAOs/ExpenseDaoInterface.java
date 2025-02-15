@@ -7,11 +7,11 @@ import com.oop2ca4databaseassignmentdao.Exceptions.DaoException;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public interface ExpenseDaoInterface {
     public Map<String, Object> allExpensesPlusTotal() throws DaoException;
-
-//    public User findUserByUsernamePassword(String username, String password) throws DaoException;
-
+    public Expense addExpense(Scanner keyboard) throws DaoException;
+    public Expense deleteExpense(Scanner keyboard) throws DaoException;
 }
 

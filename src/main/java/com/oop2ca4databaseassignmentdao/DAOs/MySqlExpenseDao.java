@@ -1,6 +1,5 @@
 package com.oop2ca4databaseassignmentdao.DAOs;
 
-//import com.dkit.oop.oop2ca4databaseassignmentdao.DTOs.User;
 import com.oop2ca4databaseassignmentdao.DTOs.Expense;
 import com.oop2ca4databaseassignmentdao.Exceptions.DaoException;
 import java.sql.Connection;
@@ -65,57 +64,94 @@ public class MySqlExpenseDao extends MySqlDao implements ExpenseDaoInterface {
         return map;
     }
 
-//    @Override
-//    public Expense deleteExpense() throws DaoException
-//    {
-//        Connection connection = null;
-//        PreparedStatement preparedStatement = null;
-//        ResultSet resultSet = null;
-//        User user = null;
-//        try
-//        {
-//            connection = this.getConnection();
-//
-//            String query = "SELECT * FROM USER WHERE USERNAME = ? AND PASSWORD = ?";
-//            preparedStatement = connection.prepareStatement(query);
-//            preparedStatement.setString(1, user_name);
-//            preparedStatement.setString(2, password);
-//
-//            resultSet = preparedStatement.executeQuery();
-//            if (resultSet.next())
-//            {
-//                int userId = resultSet.getInt("USER_ID");
-//                String username = resultSet.getString("USERNAME");
-//                String pwd = resultSet.getString("PASSWORD");
-//                String lastname = resultSet.getString("LAST_NAME");
-//                String firesultSettname = resultSet.getString("FIRST_NAME");
-//
-//                user = new User(userId, firesultSettname, lastname, username, pwd);
-//            }
-//        } catch (SQLException e)
-//        {
-//            throw new DaoException("findUserByUsernamePassword() " + e.getMessage());
-//        } finally
-//        {
-//            try
-//            {
-//                if (resultSet != null)
-//                {
-//                    resultSet.close();
-//                }
-//                if (preparedStatement != null)
-//                {
-//                    preparedStatement.close();
-//                }
-//                if (connection != null)
-//                {
-//                    freeConnection(connection);
-//                }
-//            } catch (SQLException e)
-//            {
-//                throw new DaoException("findUserByUsernamePassword() " + e.getMessage());
-//            }
-//        }
-//        return user;     // reference to User object, or null value
-//    }
+    @Override
+    public Expense addExpense(Scanner keyboard) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Expense newExpense = null;
+
+        try {
+            connection = this.getConnection();
+
+            System.out.println("Please enter the title of the expense :");
+            String title = keyboard.nextLine();
+            System.out.println("Please enter the category of the task :");
+            String category = keyboard.nextLine();
+            System.out.println("Please enter the amount of the expense :");
+            double amount = keyboard.nextDouble();
+            keyboard.nextLine();
+            System.out.println("Please enter the date incurred of the expense (the format YYYY-MM-DD) :");
+            java.sql.Date dateIncurred = java.sql.Date.valueOf(keyboard.nextLine());
+
+            String sqlQuery = "INSERT INTO expense (title, category, amount, dateIncurred) VALUES (?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(sqlQuery, PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, title);
+            preparedStatement.setString(2, category);
+            preparedStatement.setDouble(3, amount);
+            preparedStatement.setDate(4, dateIncurred);
+            preparedStatement.executeUpdate();
+
+            resultSet = preparedStatement.getGeneratedKeys();
+            if ( resultSet.next() ) {
+                int expenseID = resultSet.getInt(1);
+                newExpense = new Expense(expenseID, title, category, amount, dateIncurred);
+            }
+            else {
+                throw new DaoException("No ID returned :( New Expense failed to add !");
+            }
+        }
+        catch (SQLException e) {
+            throw new DaoException("addExpense() " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    freeConnection(connection);
+                }
+            } catch (SQLException e) {
+                throw new DaoException("addExpense() " + e.getMessage());
+            }
+        }
+        return newExpense;
+    }
+
+    @Override
+    public Expense deleteExpense(Scanner keyboard) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Expense deletedExpense = null;
+
+        try {
+            connection = this.getConnection();
+
+
+        }
+        catch (SQLException e) {
+            throw new DaoException("deleteExpense() " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    freeConnection(connection);
+                }
+            }
+            catch (SQLException e) {
+                throw new DaoException("deleteExpense() " + e.getMessage());
+            }
+        }
+
+        return deletedExpense;
+    }
 }
